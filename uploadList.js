@@ -12,7 +12,7 @@ for (var a = 0;a<DC1.length;a++) {
 DC1[a].children[6].outerHTML = DC1[a].children[6].outerHTML.replace("<td>","<td style='color:white;background-color: #999;'>")
   let SRCount = DC1[a].children[6].children[2].children[0].innerText;
   if (SRCount == 1) {
-   DC1[a].children[6].children[2].children[0].outerHTML = DC1[a].children[6].children[2].children[0].outerHTML.replace("<abbr","<abbr style='color:white;background-color: green;'")
+   DC1[a].children[6].children[2].children[0].outerHTML = DC1[a].children[6].children[2].children[0].outerHTML.replace("<abbr","<abbr style='color:green;'")
   } else if (SRCount >=2) {
      DC1[a].children[6].children[2].outerHTML = DC1[a].children[6].children[2].outerHTML.replace("<div","<div style='color:white;background-color: green;'")
   }  
