@@ -1,74 +1,74 @@
-   .modalN {
-            display: none;
-            height: 100%;
-            left: 0;
-            position: fixed;
-            top: 0;
-            width: 100%;
-      background-color: white;
-        }
+.modalN {
+    display: none;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: white;
+}
 
-        .modal__header {
-            height: 250px;
-            padding-right: 15px;
-        }
+.modal__header {
+    height: 250px;
+    padding-right: 15px;
+}
 
-        .modalN.open {
-            display: block;
-        }
+.modalN.open {
+    display: block;
+}
 
-        .modal__content {
-            position: absolute;
-            width: 100%;
-            bottom: 0px;
-            top: 280px;
-            overflow-y: auto;
-        }
+.modal__content {
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    top: 280px;
+    overflow-y: auto;
+}
 
-        .modalN table {
-            font-family: Verdana, Arial, Helvetica, sans-serif;
-            border-collapse: collapse;
-        }
+.modalN table {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+}
 
-        .modalN th {
-            font-size: 15px;
-            position: sticky;
-            top: 0;
-            box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
-        }
+.modalN th {
+    font-size: 15px;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+}
 
-        .modalN td {
-            width: 280px;
-            border: 1px solid grey;
-            font-size: 11px;
-            font-family: Verdana, Arial, Helvetica, sans-serif;
-            vertical-align: top;
-            padding: 5px 10px;
-        }
+.modalN td {
+    width: 280px;
+    border: 1px solid grey;
+    font-size: 11px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    vertical-align: top;
+    padding: 5px 10px;
+}
 
-        .modalN table,
-        .modalN th,
-        .modalN td {
-            position: relative;
-            border: 1px solid black;
-        }
+.modalN table,
+.modalN th,
+.modalN td {
+    position: relative;
+    border: 1px solid black;
+}
 
-        .modalN textarea {
-            resize: none;
-            width: 100%;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            padding: 5px 10px;
-            position: absolute;
-            resize: none;
-            -webkit-box-sizing: border-box;
-            /* <=iOS4, <= Android  2.3 */
-            -moz-box-sizing: border-box;
-            /* FF1+ */
-            box-sizing: border-box;
-            /* Chrome, IE8, Opera, Safari 5.1*/
-            font-size: 11px;
-            font-family: Verdana, Arial, Helvetica, sans-serif;
-        }
+.modalN textarea {
+    resize: none;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 5px 10px;
+    position: absolute;
+    resize: none;
+    -webkit-box-sizing: border-box;
+    /* <=iOS4, <= Android  2.3 */
+    -moz-box-sizing: border-box;
+    /* FF1+ */
+    box-sizing: border-box;
+    /* Chrome, IE8, Opera, Safari 5.1*/
+    font-size: 11px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
