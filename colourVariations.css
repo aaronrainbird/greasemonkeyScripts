@@ -1,0 +1,47 @@
+.modal table {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+}
+
+.modal th {
+    font-size: 15px;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+}
+
+.modal td {
+    width: 280px;
+    border: 1px solid grey;
+    font-size: 11px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    vertical-align: top;
+    padding: 5px 10px;
+}
+
+.modal table,
+.modal th,
+.modal td {
+    position: relative;
+    border: 1px solid black;
+}
+
+.modal textarea {
+    resize: none;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 5px 10px;
+    position: absolute;
+    resize: none;
+    -webkit-box-sizing: border-box;
+    /* <=iOS4, <= Android  2.3 */
+    -moz-box-sizing: border-box;
+    /* FF1+ */
+    box-sizing: border-box;
+    /* Chrome, IE8, Opera, Safari 5.1*/
+    font-size: 11px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
