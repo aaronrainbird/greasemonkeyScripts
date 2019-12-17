@@ -153,7 +153,7 @@ function addBGReference() {
         url('${imageLink(currentPIDNo, "in")}');background-blend-mode: multiply;background-size: cover;"></div></td>`
         backgroundRefHTML += `<td align='center'><div style="height: 500px;width: 335px;background-image: url('https://raw.githack.com/aaronrainbird/greasemonkeyScripts/master/FJ Template.jpg'),
         url('${imageLink(currentPIDNo, "in")}');background-blend-mode: multiply;background-size: cover;"></div></td>`
-        backgroundRefHTML += `</tr><tr><td style="text-align:center">Index Template</td><td style="text-align:center">Accessory Template</td><td style="text-align:center">FJ Template</td></tbody></table>`
+        backgroundRefHTML += `</tr><tr><td style="text-align:center">RTW Template</td><td style="text-align:center">Accessory Template</td><td style="text-align:center">FJ Template</td></tbody></table>`
     }
 
     backgroundRefHTML += `<table class='image_preview' border='0'><tbody><tr><td colspan='6'><div class='image_name'>Background Reference</div></td></tr><tr>`
