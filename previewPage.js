@@ -6,6 +6,7 @@ createScript("https://code.jquery.com/jquery-3.3.1.min.js")
 createScript("https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js")
 createCSS("https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css")
 
+
 $(document).ready(function () { //When document has loaded
     setTimeout(function () {
         var allImageDivs = document.getElementsByClassName('image_preview');
@@ -33,20 +34,8 @@ $(document).ready(function () { //When document has loaded
 
 });
 
-function imageFail(image) {
 
-    /*
-    if (text) {
-        console.log("doesn't exist");
-        console.log(image);
-        image.src = "https://via.placeholder.com/230x455.png/FF0000/FFFFFF?text=" + text;
-    } else {
-        // Remove image if it doesn't exist
-        let tableAbove = image.parentNode;
-        tableAbove.parentNode.removeChild(tableAbove);
-    }
-    */
-}
+
 
 function imageLink(pidNo, imageType, searchType) {
     if (site == "NAP") {
@@ -72,21 +61,20 @@ function createExtraPreviews(outfitPIDsRAW) {
     var outfitPIDsResponse = outfitPIDsRAW.replace(/\[/g, "");
     outfitPIDsResponse = outfitPIDsResponse.replace(/\]/g, "");
     var outfitPIDs = outfitPIDsResponse.split(",");
-
-    addOutfitLinks(outfitPIDs)
-    addBGReference();
+    removeSizePreviews();
 
     addExtraGridImages()
     addFancyBoxLinks()
 
-    removeSizePreviews();
-
+    addBGReference();
+    addOutfitLinks(outfitPIDs)
+    removeMissingImages()
 }
 
 
 function addExtraGridImages() {
     // Get last image in preview grid strip
-    let imagePreviewGrid = document.querySelector("table.image_preview").querySelectorAll("img.lazy")
+    let imagePreviewGrid = document.querySelectorAll("table.image_preview img.lazy")
     lastPreviewImage = imagePreviewGrid[imagePreviewGrid.length - 1]
 
     let videoHTML = `<video width="280" height="345" controls>
@@ -104,30 +92,26 @@ function addExtraGridImages() {
     }
 }
 
-function addBGReference() {
-    let imageSizesPreview = document.getElementsByClassName('image_preview')[document.getElementsByClassName('image_preview').length - 1]
-    let backgroundRefHTML = `<table class='image_preview' border='0'><tbody><tr><td colspan='6'><div class='image_name'>Background Reference</div></td></tr><tr>`
+function addFancyBoxLinks() {
+    var imagesToPreview = document.querySelector("table.image_preview").querySelectorAll("img")
 
-    if (site == "MrP") {
-        backgroundRefHTML += `<td align='center'><IMG SRC='${imageLink(currentPIDNo, "fr")}' style='display: inline;' width='auto' height='460'></td>`
-        backgroundRefHTML += `<td align='center'><IMG SRC='${imageLink(currentPIDNo, "ou")}' style='display: inline;' width='auto' height='460'></td>`
-        backgroundRefHTML += `<td align='center'><IMG SRC='${imageLink(1157508, "ou")}' style='display: inline;' width='auto' height='460'></td>`
-    } else {
-        backgroundRefHTML += "<td align='center'> <img src='https://raw.githack.com/aaronrainbird/injectImages/master/CONCRETEREF.jpg' style='display: inline;' width='auto' height='460'>  </td>"
-        backgroundRefHTML += `<td align='center'><img src='${imageLink(currentPIDNo, "fr")}' style='display: inline;' width='auto' height='460' onerror='this.onerror=null;this.src="${imageLink(currentPIDNo, "ou")}"'</td>`
-        backgroundRefHTML += `<td align='center'> <img src='https://raw.githack.com/aaronrainbird/injectImages/master/PANELREF.jpg' style='display: inline;' width='auto' height='460'></td>`
+    for (var a = 0; a < imagesToPreview.length; a++) {
+
+        if (imagesToPreview[a].src != "http://fulcrum.net-a-porter.com/static/images/missing.gif") {
+            let currentImageSRC = imagesToPreview[a].src
+
+            if (site == "NAP") {
+                var newLink = currentImageSRC.replace("_l.jpg", "_xxl.jpg")
+            } else {
+                var newLink = currentImageSRC.replace("_m2.jpg", "_xxl.jpg")
+            }
+            let currentImageHTML = imagesToPreview[a].outerHTML
+
+            imagesToPreview[a].outerHTML = "<a href=" + newLink + " data-fancybox='gallery' data-caption=''>" + currentImageHTML + "</a>"
+        }
     }
-    backgroundRefHTML += `</tr></tbody></table>`
-    // return backgroundRefHTML;
 
-    var newText = document.createElement('table'); // create new textarea
-    var backgroundRefElement = imageSizesPreview.parentNode.insertBefore(newText, imageSizesPreview.nextSibling);
-    backgroundRefElement.outerHTML = backgroundRefHTML;
 }
-
-
-
-
 
 function addOutfitLinks(outfitLinks) {
 
@@ -157,44 +141,49 @@ function addOutfitLinks(outfitLinks) {
 
 }
 
+function addBGReference() {
+    let imageSizesPreview = document.getElementsByClassName('image_preview')[document.getElementsByClassName('image_preview').length - 1]
+    let backgroundRefHTML = ``
 
-
-
-
-
-
-
-
-
-
-function addFancyBoxLinks() {
-    var imagesToPreview = document.querySelector("table.image_preview").querySelectorAll("img")
-
-    for (var a = 0; a < imagesToPreview.length; a++) {
-
-        if (imagesToPreview[a].src != "http://fulcrum.net-a-porter.com/static/images/missing.gif") {
-            let currentImageSRC = imagesToPreview[a].src
-
-            if (site == "NAP") {
-                var newLink = currentImageSRC.replace("_l.jpg", "_xxl.jpg")
-            } else {
-                var newLink = currentImageSRC.replace("_m2.jpg", "_xxl.jpg")
-            }
-            let currentImageHTML = imagesToPreview[a].outerHTML
-
-            imagesToPreview[a].outerHTML = "<a href=" + newLink + " data-fancybox='gallery' data-caption=''>" + currentImageHTML + "</a>"
-        }
+    if (site=="NAP") {
+        backgroundRefHTML += `<table class='image_preview' border='0'><tbody><tr><td colspan='6'><div class='image_name'>Template Check</div></td></tr><tr>`
+        backgroundRefHTML += `<td align='center'><div style="height: 500px;width: 335px;background-image: url('https://raw.githack.com/aaronrainbird/greasemonkeyScripts/master/Index Template.jpg'),
+        url('${imageLink(currentPIDNo, "in")}');background-blend-mode: multiply;background-size: cover;"></div></td>`
+        backgroundRefHTML += `<td align='center'><div style="height: 500px;width: 335px;background-image: url('https://raw.githack.com/aaronrainbird/greasemonkeyScripts/master/Accessory Template.jpg'),
+        url('${imageLink(currentPIDNo, "in")}');background-blend-mode: multiply;background-size: cover;"></div></td>`
+        backgroundRefHTML += `<td align='center'><div style="height: 500px;width: 335px;background-image: url('https://raw.githack.com/aaronrainbird/greasemonkeyScripts/master/FJ Template.jpg'),
+        url('${imageLink(currentPIDNo, "in")}');background-blend-mode: multiply;background-size: cover;"></div></td>`
+        backgroundRefHTML += `</tr><tr><td style="text-align:center">Index Template</td><td style="text-align:center">Accessory Template</td><td style="text-align:center">FJ Template</td></tbody></table>`
     }
 
-}
+    backgroundRefHTML += `<table class='image_preview' border='0'><tbody><tr><td colspan='6'><div class='image_name'>Background Reference</div></td></tr><tr>`
 
+    if (site == "MrP") {
+        backgroundRefHTML += `<td align='center'><IMG SRC='${imageLink(currentPIDNo, "fr")}' style='display: inline;' width='auto' height='460'></td>`
+        backgroundRefHTML += `<td align='center'><IMG SRC='${imageLink(currentPIDNo, "ou")}' style='display: inline;' width='auto' height='460'></td>`
+        backgroundRefHTML += `<td align='center'><IMG SRC='${imageLink(1157508, "ou")}' style='display: inline;' width='auto' height='460'></td>`
+    } else {
+        backgroundRefHTML += "<td align='center'> <img src='https://raw.githack.com/aaronrainbird/injectImages/master/CONCRETEREF.jpg' style='display: inline;' width='auto' height='460'>  </td>"
+        backgroundRefHTML += `<td align='center'><img src='${imageLink(currentPIDNo, "fr")}' style='display: inline;' width='auto' height='460' onerror='this.onerror=null;this.src="${imageLink(currentPIDNo, "ou")}"'</td>`
+        backgroundRefHTML += `<td align='center'> <img src='https://raw.githack.com/aaronrainbird/injectImages/master/PANELREF.jpg' style='display: inline;' width='auto' height='460'></td>`
+    }
+    backgroundRefHTML += `</tr></tbody></table>`
+
+    var newText = document.createElement('table'); // create new textarea
+    var backgroundRefElement = imageSizesPreview.parentNode.insertBefore(newText, imageSizesPreview.nextSibling);
+    backgroundRefElement.outerHTML = backgroundRefHTML;
+}
 
 function removeSizePreviews() {
-    let imageTables = document.getElementsByClassName('image_preview');
-    let elem = imageTables[imageTables.length - 3]
-    elem.parentNode.removeChild(elem);
+    document.querySelectorAll('table.image_preview')[1].remove()
 }
 
+function removeMissingImages() {
+    [...document.querySelectorAll('div.image_preview')].filter(div => div.children[0].src=="http://fulcrum.net-a-porter.com/static/images/missing.gif").forEach(function(missing) {
+        missing.previousElementSibling.remove();
+          missing.remove();
+     });
+}
 
 
 function createScript(source) {
