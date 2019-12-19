@@ -1,6 +1,7 @@
 var currentPIDNo = window.location.href.split('/')[window.location.href.split('/').length - 1].split("#")[0];
 var outfitImageSrc = ""
 var site = document.getElementsByClassName('image_preview')[0].innerHTML.indexOf("cache.mrporter") > 0 ? "MrP" : "NAP";
+var name = document.querySelectorAll('div#user_status em')[0].innerText;
 
 createScript("https://code.jquery.com/jquery-3.3.1.min.js")
 createScript("https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js")
@@ -77,6 +78,8 @@ function addExtraGridImages() {
     let imagePreviewGrid = document.querySelectorAll("table.image_preview img.lazy")
     lastPreviewImage = imagePreviewGrid[imagePreviewGrid.length - 1]
 
+    let E6 = `<img src="${imageLink(currentPIDNo, "e6")}" alt="E6" width="230" height="345" onerror="this.onerror=null;this.parentNode.removeChild(this);" />`
+
     let videoHTML = `<video width="280" height="345" controls>
   <source src="${imageLink(currentPIDNo,"video")}" type="video/mp4">
 </video>`
@@ -86,7 +89,7 @@ function addExtraGridImages() {
     let pressImageHTML = `<img src="${imageLink(currentPIDNo, "pr")}" alt="Press Image" width="230" height="345" onerror="this.onerror=null;this.src='https://via.placeholder.com/230x455.png/FF0000/FFFFFF?text=PRESS IMAGE MISSING';" />`
 
     if (site == "NAP") {
-        lastPreviewImage.outerHTML += videoHTML + swatchImageHTML + pressImageHTML;
+        lastPreviewImage.outerHTML += E6 + videoHTML + swatchImageHTML + pressImageHTML;
     } else {
         lastPreviewImage.outerHTML += videoHTML + swatchImageHTML;
     }
@@ -183,6 +186,18 @@ function removeMissingImages() {
         missing.previousElementSibling.remove();
           missing.remove();
      });
+}
+
+function imgError(image) {
+    // this will step up to get the parent of the image's parent
+    var imgParent = image.parentElement.parentElement;
+    // this will get the next sibling of the image grandpa
+    var nextSib = imgParent.nextElementSibling;
+    // reset it's html to empty
+    nextSib.innerHTML = '';
+    image.onerror = "";
+    image.src = "http://localhost/domain/images/error.jpg";
+    return true;
 }
 
 
