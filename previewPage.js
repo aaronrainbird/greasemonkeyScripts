@@ -89,7 +89,7 @@ function addExtraGridImages() {
     let pressImageHTML = `<img src="${imageLink(currentPIDNo, "pr")}" alt="Press Image" width="230" height="345" onerror="this.onerror=null;this.src='https://via.placeholder.com/230x455.png/FF0000/FFFFFF?text=PRESS IMAGE MISSING';" />`
 
     if (site == "NAP") {
-        lastPreviewImage.outerHTML += E6 + videoHTML + swatchImageHTML + pressImageHTML;
+        lastPreviewImage.outerHTML += videoHTML + swatchImageHTML + pressImageHTML;
     } else {
         lastPreviewImage.outerHTML += videoHTML + swatchImageHTML;
     }
