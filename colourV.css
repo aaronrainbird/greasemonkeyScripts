@@ -74,10 +74,10 @@
 }
 
 .used {
- background-color: green;    
+margin: 10px 5px;border-radius: 20px;background-color: green;color: white;padding: 10px 10px;-webkit-appearance: button;-moz-appearance: button;appearance: button;display: inline-block; 
 }
 
 .unused {
- background-color: red;   
+margin: 10px 5px;border-radius: 20px;background-color: red;color: white;padding: 10px 10px;-webkit-appearance: button;-moz-appearance: button;appearance: button;display: inline-block;
 }
 
