@@ -72,3 +72,12 @@
     font-size: 11px;
     font-family: Verdana, Arial, Helvetica, sans-serif;
 }
+
+.used {
+ background-color: green;    
+}
+
+.unused {
+ background-color: red;   
+}
+
