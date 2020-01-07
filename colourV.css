@@ -9,6 +9,11 @@
     z-index: 2;
 }
 
+.copyTo {
+    background-color: lightslategray;
+    color: white;
+}
+
 .modal__header {
     height: 250px;
     padding-right: 15px;
