@@ -9,6 +9,10 @@
     z-index: 2;
 }
 
+.modal__content td {
+    background-color: rgb(244,244,250);
+}
+
 .copyTo {
     background-color: lightslategray;
     color: white;
