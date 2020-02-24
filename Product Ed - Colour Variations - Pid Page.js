@@ -58,7 +58,7 @@ function grabLinkedPidInfo(urls) {
             let currentDetails = document.querySelectorAll("[id^='long_description']")[0].defaultValue;
             let currentDescription = document.querySelectorAll('#product_overview')[0].children[1].children[0].children[0].children[1].textContent.trim();
             let currentSizeAndFit = document.querySelectorAll("[id^='size_fit']")[0].defaultValue;
-            let currentKeywords = arrayUnique(document.querySelectorAll("[id^='keywords']")[0].defaultValue.trim().split(/[\s{1,},]|\t/)).filter(word => word.length > 1);
+            let currentKeywords = arrayUnique(document.querySelectorAll("[id^='keywords']")[0].defaultValue.trim().split(/[\s{1,},]|\t/)).filter(word => word.length > 1).sort();
             let currentCurrentList = document.querySelectorAll("[id^='editorial_list']")[0].textContent.replace(/_/g, "_<BR>");
             let currentPid = document.querySelectorAll("title")[0].textContent.match(/\d+/)[0];
 
@@ -137,7 +137,7 @@ function grabLinkedPidInfo(urls) {
             }
          
 
-            otherKeywords = otherKeywords.filter(word => word.length > 1)
+            otherKeywords = otherKeywords.filter(word => word.length > 1).sort(function(a,b) { a = a.toLowerCase();b = b.toLowerCase();if( a == b) return 0;return a < b ? -1 : 1;})
 
             var uniqueKeywordsArray = arrayUnique(currentKeywords.concat(otherKeywords));
 
@@ -149,14 +149,18 @@ function grabLinkedPidInfo(urls) {
             </tr>
             </tbody>
             </table>
-            <table><thead><th colspan="2" style="padding: 20px 0;font-size: 14px;font-weight: bold;text-align:center">All Sentences Used:</th></thead>
+
+            </div></div>
+            `
+            //<tbody id='sentenceArea'>
+            /*
+
+                        <table><thead><th colspan="2" style="padding: 20px 0;font-size: 14px;font-weight: bold;text-align:center">All Sentences Used:</th></thead>
             
 
             </tbody>
             </table>
-            </div></div>
-            `
-            //<tbody id='sentenceArea'>
+            */
 
             let divToAdd = document.createRange().createContextualFragment(divHTML);
 
@@ -189,6 +193,7 @@ function grabLinkedPidInfo(urls) {
                         // console.log(updatedText)
                         document.getElementById('currentKeywordsBox').value = updatedText;
                     }
+                    document.getElementById('currentKeywordsBox').value = document.getElementById('currentKeywordsBox').value.split(" ").sort(function(a,b) { a = a.toLowerCase();b = b.toLowerCase();if( a == b) return 0;return a < b ? -1 : 1;}).join(" ")
                 }
                 keywordButton.innerText = uniqueKeywordsArray[a] + " ";
                 // console.log(currentKeywords.length)
@@ -198,7 +203,7 @@ function grabLinkedPidInfo(urls) {
                 } else {
                     keywordButton.className = 'unused'
                 }
-
+                
                 //  keywordButton.style.cssText = "margin: 10px 5px;border-radius: 20px;background-color: green;color: white;padding: 10px 10px;-webkit-appearance: button;-moz-appearance: button;appearance: button;display: inline-block;"
                 keywordArea.appendChild(keywordButton);
             }
@@ -215,7 +220,7 @@ function grabLinkedPidInfo(urls) {
 
 
             $('#currentKeywordsBox').on('blur', function (e) {
-                console.log("im firing")
+                document.getElementById('currentKeywordsBox').value = document.getElementById('currentKeywordsBox').value.split(" ").sort(function(a,b) { a = a.toLowerCase();b = b.toLowerCase();if( a == b) return 0;return a < b ? -1 : 1;}).join(" ")
                 updateKeywordCloud(this.value);
             });
 
@@ -223,6 +228,8 @@ function grabLinkedPidInfo(urls) {
         }
     })
 }
+
+
 
 function arrayUnique(array) {
     var a = array.concat();
@@ -306,7 +313,7 @@ function loadCSS() {
 
 function updateKeywordCloud(current) {
 
-    var currentKeywords = arrayUnique(current.trim().split(/[\s{1,},]|\t/)).filter(word => word.length > 1);
+    var currentKeywords = arrayUnique(current.trim().split(/[\s{1,},]|\t/)).filter(word => word.length > 1).sort(function(a,b) { a = a.toLowerCase();b = b.toLowerCase();if( a == b) return 0;return a < b ? -1 : 1;})
     var uniqueKeywordsArray = arrayUnique(currentKeywords.concat(otherKeywords));
 
     let keywordArea = document.getElementById('keywordArea');
@@ -335,6 +342,7 @@ function updateKeywordCloud(current) {
                 // console.log(updatedText)
                 document.getElementById('currentKeywordsBox').value = updatedText;
             }
+            document.getElementById('currentKeywordsBox').value = document.getElementById('currentKeywordsBox').value.split(" ").sort(function(a,b) { a = a.toLowerCase();b = b.toLowerCase();if( a == b) return 0;return a < b ? -1 : 1;}).join(" ")
         }
         keywordButton.innerText = uniqueKeywordsArray[a] + " ";
         // console.log(currentKeywords.length)
