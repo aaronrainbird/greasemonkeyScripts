@@ -1,10 +1,3 @@
-// ==UserScript==
-// @name     Editorial List Page - Grab Colour Variations
-// @version  1
-// @grant    none
-// @match  http://fulcrum.net-a-porter.com/editorial/*/view
-// ==/UserScript==
-
 var pidElements = document.getElementsByClassName('piditem')
 var pidRows = document.querySelectorAll("[id^='row_for_pc']");
 
