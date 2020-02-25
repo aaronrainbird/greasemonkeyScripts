@@ -43,7 +43,7 @@ function grabLinkedPidInfo(urls) {
         for (let a = 0; a < text.length; a++) {
             const parser = new DOMParser();
             const htmlDocument = parser.parseFromString(text[a], "text/html");
-            console.log(htmlDocument.querySelectorAll("[id^='editors_comments']:not([id$='count'])"))
+
             let pidInfo = {
                 "pid": htmlDocument.querySelectorAll("title")[0].textContent.match(/\d+/)[0],
                 "description": htmlDocument.querySelectorAll('#product_overview')[0].children[1].children[0].children[0].children[1].textContent.trim(),
