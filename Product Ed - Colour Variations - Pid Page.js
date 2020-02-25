@@ -220,7 +220,7 @@ function grabLinkedPidInfo(urls) {
 
 
             $('#currentKeywordsBox').on('blur', function (e) {
-                document.getElementById('currentKeywordsBox').value = document.getElementById('currentKeywordsBox').value.split(" ").sort(function(a,b) { a = a.toLowerCase();b = b.toLowerCase();if( a == b) return 0;return a < b ? -1 : 1;}).join(" ")
+                document.getElementById('currentKeywordsBox').value = document.getElementById('currentKeywordsBox').value.split(" ").sort(function(a,b) { a = a.toLowerCase();b = b.toLowerCase();if( a == b) return 0;return a < b ? -1 : 1;}).join(" ").trimStart();
                 updateKeywordCloud(this.value);
             });
 
@@ -254,13 +254,13 @@ function addOnInteractionFunctions() {
             // console.log(cellIndex)
             pageChange = true;
             if (cellIndex == 2) {
-                document.querySelectorAll("[id^='editors_comments']:not([id$='count'])")[0].textContent = document.getElementById('masterEditorsNotes').children[0].value;
+                document.querySelectorAll("[id^='editors_comments']:not([id$='count'])")[0].textContent = document.getElementById('currentEditorsNotes').children[0].value;
             } else if (cellIndex == 3) {
-                document.querySelectorAll("[id^='long_description']:not([id$='count'])")[0].textContent = document.getElementById('masterDetails').children[0].value;
+                document.querySelectorAll("[id^='long_description']:not([id$='count'])")[0].textContent = document.getElementById('currentDetails').children[0].value;
             } else if (cellIndex == 4) {
-                document.querySelectorAll("[id^='size_fit']:not([id$='count'])")[0].textContent = document.getElementById('masterSizeAndFitNotes').children[0].value;
+                document.querySelectorAll("[id^='size_fit']:not([id$='count'])")[0].textContent = document.getElementById('currentSizeAndFitNotes').children[0].value;
             } else if (cellIndex == 5) {
-                document.querySelectorAll("[id^='keywords']:not([id$='count'])")[0].textContent = document.getElementById('masterKeywordsBox').value;
+                document.querySelectorAll("[id^='keywords']:not([id$='count'])")[0].textContent = document.getElementById('currentKeywordsBox').value;
             }
         }
     }
@@ -342,7 +342,7 @@ function updateKeywordCloud(current) {
                 // console.log(updatedText)
                 document.getElementById('currentKeywordsBox').value = updatedText;
             }
-            document.getElementById('currentKeywordsBox').value = document.getElementById('currentKeywordsBox').value.split(" ").sort(function(a,b) { a = a.toLowerCase();b = b.toLowerCase();if( a == b) return 0;return a < b ? -1 : 1;}).join(" ")
+            document.getElementById('currentKeywordsBox').value = document.getElementById('currentKeywordsBox').value.split(" ").sort(function(a,b) { a = a.toLowerCase();b = b.toLowerCase();if( a == b) return 0;return a < b ? -1 : 1;}).join(" ").trimStart();
         }
         keywordButton.innerText = uniqueKeywordsArray[a] + " ";
         // console.log(currentKeywords.length)
