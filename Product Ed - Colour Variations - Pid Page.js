@@ -5,7 +5,7 @@ var site = document.getElementsByClassName('data')[0].children[1].children[0].ch
 var siteLink = site == "MRP" ? "mrporter" : "net-a-porter";
 var yuiNav = document.getElementsByClassName('yui-nav')[0].children;
 var navNumber
-for (var i = 0;i<yuiNav.length;i++) {
+for (var i = 0; i < yuiNav.length; i++) {
     if (yuiNav[i].title == "active") {
         navNumber = i;
     }
@@ -43,7 +43,7 @@ function grabLinkedPidInfo(urls) {
         for (let a = 0; a < text.length; a++) {
             const parser = new DOMParser();
             const htmlDocument = parser.parseFromString(text[a], "text/html");
-
+            console.log(htmlDocument.querySelectorAll("[id^='editors_comments']:not([id$='count'])"))
             let pidInfo = {
                 "pid": htmlDocument.querySelectorAll("title")[0].textContent.match(/\d+/)[0],
                 "description": htmlDocument.querySelectorAll('#product_overview')[0].children[1].children[0].children[0].children[1].textContent.trim(),
@@ -144,9 +144,14 @@ function grabLinkedPidInfo(urls) {
                         </tr>  
                    `
             }
-         
 
-            otherKeywords = otherKeywords.filter(word => word.length > 1).sort(function(a,b) { a = a.toLowerCase();b = b.toLowerCase();if( a == b) return 0;return a < b ? -1 : 1;})
+
+            otherKeywords = otherKeywords.filter(word => word.length > 1).sort(function (a, b) {
+                a = a.toLowerCase();
+                b = b.toLowerCase();
+                if (a == b) return 0;
+                return a < b ? -1 : 1;
+            })
 
             var uniqueKeywordsArray = arrayUnique(currentKeywords.concat(otherKeywords));
 
@@ -202,7 +207,12 @@ function grabLinkedPidInfo(urls) {
                         // console.log(updatedText)
                         document.getElementById('currentKeywordsBox').value = updatedText;
                     }
-                    document.getElementById('currentKeywordsBox').value = document.getElementById('currentKeywordsBox').value.split(" ").sort(function(a,b) { a = a.toLowerCase();b = b.toLowerCase();if( a == b) return 0;return a < b ? -1 : 1;}).join(" ")
+                    document.getElementById('currentKeywordsBox').value = document.getElementById('currentKeywordsBox').value.split(" ").sort(function (a, b) {
+                        a = a.toLowerCase();
+                        b = b.toLowerCase();
+                        if (a == b) return 0;
+                        return a < b ? -1 : 1;
+                    }).join(" ")
                 }
                 keywordButton.innerText = uniqueKeywordsArray[a] + " ";
                 // console.log(currentKeywords.length)
@@ -212,25 +222,30 @@ function grabLinkedPidInfo(urls) {
                 } else {
                     keywordButton.className = 'unused'
                 }
-                
+
                 //  keywordButton.style.cssText = "margin: 10px 5px;border-radius: 20px;background-color: green;color: white;padding: 10px 10px;-webkit-appearance: button;-moz-appearance: button;appearance: button;display: inline-block;"
                 keywordArea.appendChild(keywordButton);
             }
             addOnInteractionFunctions()
 
             for (var a = 0; a < linkedPIDInfo.length; a++) {
-                    document.getElementsByClassName('editorsNotes')[a].innerText = linkedPIDInfo[a].editorsNotes
-                    document.getElementsByClassName('details')[a].innerText = linkedPIDInfo[a].details
-                    document.getElementsByClassName('sizeAndFitNotes')[a].innerText = linkedPIDInfo[a].sizeAndFit
-                    document.getElementsByClassName('keywords')[a].innerText = linkedPIDInfo[a].keywords
-    
+                document.getElementsByClassName('editorsNotes')[a].innerText = linkedPIDInfo[a].editorsNotes
+                document.getElementsByClassName('details')[a].innerText = linkedPIDInfo[a].details
+                document.getElementsByClassName('sizeAndFitNotes')[a].innerText = linkedPIDInfo[a].sizeAndFit
+                document.getElementsByClassName('keywords')[a].innerText = linkedPIDInfo[a].keywords
+
             }
             document.getElementById('onClickHide').addEventListener("click", toggleModal, false)
             document.getElementById('loadingText').innerHTML = "<B>Click to View</B>"
 
 
             $('#currentKeywordsBox').on('blur', function (e) {
-                document.getElementById('currentKeywordsBox').value = document.getElementById('currentKeywordsBox').value.split(" ").sort(function(a,b) { a = a.toLowerCase();b = b.toLowerCase();if( a == b) return 0;return a < b ? -1 : 1;}).join(" ").trimStart();
+                document.getElementById('currentKeywordsBox').value = document.getElementById('currentKeywordsBox').value.split(" ").sort(function (a, b) {
+                    a = a.toLowerCase();
+                    b = b.toLowerCase();
+                    if (a == b) return 0;
+                    return a < b ? -1 : 1;
+                }).join(" ").trimStart();
                 updateKeywordCloud(this.value);
             });
 
@@ -323,7 +338,12 @@ function loadCSS() {
 
 function updateKeywordCloud(current) {
 
-    var currentKeywords = arrayUnique(current.trim().split(/[\s{1,},]|\t/)).filter(word => word.length > 1).sort(function(a,b) { a = a.toLowerCase();b = b.toLowerCase();if( a == b) return 0;return a < b ? -1 : 1;})
+    var currentKeywords = arrayUnique(current.trim().split(/[\s{1,},]|\t/)).filter(word => word.length > 1).sort(function (a, b) {
+        a = a.toLowerCase();
+        b = b.toLowerCase();
+        if (a == b) return 0;
+        return a < b ? -1 : 1;
+    })
     var uniqueKeywordsArray = arrayUnique(currentKeywords.concat(otherKeywords));
 
     let keywordArea = document.getElementById('keywordArea');
@@ -352,7 +372,12 @@ function updateKeywordCloud(current) {
                 // console.log(updatedText)
                 document.getElementById('currentKeywordsBox').value = updatedText;
             }
-            document.getElementById('currentKeywordsBox').value = document.getElementById('currentKeywordsBox').value.split(" ").sort(function(a,b) { a = a.toLowerCase();b = b.toLowerCase();if( a == b) return 0;return a < b ? -1 : 1;}).join(" ").trimStart();
+            document.getElementById('currentKeywordsBox').value = document.getElementById('currentKeywordsBox').value.split(" ").sort(function (a, b) {
+                a = a.toLowerCase();
+                b = b.toLowerCase();
+                if (a == b) return 0;
+                return a < b ? -1 : 1;
+            }).join(" ").trimStart();
         }
         keywordButton.innerText = uniqueKeywordsArray[a] + " ";
         // console.log(currentKeywords.length)
@@ -465,5 +490,6 @@ for (let a = 0;a<phraseClean.length;a++) {
 masterPhraseArray.push(phraseClean[a].trim())
 }
 
+console.log(masterPhraseArray)
 
 */
