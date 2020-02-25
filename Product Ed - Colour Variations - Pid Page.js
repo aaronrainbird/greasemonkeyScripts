@@ -3,14 +3,11 @@ var linkedPIDInfo = [];
 var pageChange = false;
 var site = document.getElementsByClassName('data')[0].children[1].children[0].children[0].innerHTML.indexOf("MRP") > 1 ? "MRP" : "NAP";
 var siteLink = site == "MRP" ? "mrporter" : "net-a-porter";
-var yuiNav = document.getElementsByClassName('yui-nav')[0].children;
-var navNumber
-for (var i = 0; i < yuiNav.length; i++) {
-    if (yuiNav[i].title == "active") {
-        navNumber = i;
-    }
-}
-console.log(navNumber)
+var navNumber = 0;
+
+if (window.location.href.indexOf("#tab") > -1) {
+    navNumber = parseInt(window.location.href.substr(window.location.href.indexOf("#tab")+4,1))-1
+} 
 
 
 grabColourVariations(currentPID);
@@ -44,8 +41,6 @@ function grabLinkedPidInfo(urls) {
         for (let a = 0; a < text.length; a++) {
             const parser = new DOMParser();
             const htmlDocument = parser.parseFromString(text[a], "text/html");
-            console.log(htmlDocument.querySelectorAll("[id^='editors_comments']:not([id$='count'])"))
-            console.log(htmlDocument.querySelectorAll("[id^='editors_comments']:not([id$='count'])")[navNumber].value)
             let pidInfo = {
                 "pid": htmlDocument.querySelectorAll("title")[0].textContent.match(/\d+/)[0],
                 "description": htmlDocument.querySelectorAll('#product_overview')[0].children[1].children[0].children[0].children[1].textContent.trim(),
@@ -54,7 +49,7 @@ function grabLinkedPidInfo(urls) {
                 "sizeAndFit": htmlDocument.querySelectorAll("[id^='size_fit']:not([id$='count']):not([id^='size_fit_delta'])")[navNumber].value,
                 "keywords": htmlDocument.querySelectorAll("[id^='keywords']:not([id$='count'])")[navNumber].value,
                 "currentListLink": htmlDocument.querySelectorAll("[id^='editorial_list']").length > 0 ? "<A HREF=" + htmlDocument.querySelectorAll("[id^='editorial_list']")[0].href + ">" + htmlDocument.querySelectorAll("[id^='editorial_list']")[0].textContent.replace(/_/g, " ") + "<A>" : "Not in an Editorial List",
-                "visibility": htmlDocument.getElementsByClassName('data')[0].children[1].children[navNumber].children[7].innerHTML.indexOf('bullet_green') > -1
+                "visibility": htmlDocument.getElementsByClassName('data')[0].children[1].children[navNumber].children[8].innerHTML.indexOf('bullet_green') > -1
             }
             linkedPIDInfo.push(pidInfo)
         }
