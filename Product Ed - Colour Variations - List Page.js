@@ -1,3 +1,10 @@
+// ==UserScript==
+// @name     Editorial List Page - Grab Colour Variations
+// @version  1
+// @grant    none
+// @match  http://fulcrum.net-a-porter.com/editorial/*/view
+// ==/UserScript==
+
 var pidElements = document.getElementsByClassName('piditem')
 var pidRows = document.querySelectorAll("[id^='row_for_pc']");
 
@@ -37,7 +44,7 @@ runButton.onclick = function () {
                 if (linkedPIDCount > 0) {
                     colourVariationsMatches++;
                     rowsWithColourVariations.push(order);
-                    let currentHTML = document.getElementsByClassName('classification')[0].nextElementSibling.innerHTML;
+                    let currentHTML = document.getElementsByClassName('classification')[order].nextElementSibling.innerHTML;
                     if (linkedPIDCount == 1) {
                         document.getElementsByClassName('classification')[order].nextElementSibling.innerHTML = currentHTML.trim() + "<br><p style='border:3px; border-style:solid; background-color:#FF0000;color:white;font-size:12px'>" + linkedPIDCount + " " + "Col Variation</p>";
                     } else {
