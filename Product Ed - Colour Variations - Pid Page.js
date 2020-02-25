@@ -3,6 +3,15 @@ var linkedPIDInfo = [];
 var pageChange = false;
 var site = document.getElementsByClassName('data')[0].children[1].children[0].children[0].innerHTML.indexOf("MRP") > 1 ? "MRP" : "NAP";
 var siteLink = site == "MRP" ? "mrporter" : "net-a-porter";
+var yuiNav = document.getElementsByClassName('yui-nav')[0].children;
+var navNumber
+for (var i = 0;i<yuiNav.length;i++) {
+    if (yuiNav[i].title == "active") {
+        navNumber = i;
+    }
+}
+
+
 grabColourVariations(currentPID);
 
 var otherKeywords = []
@@ -38,12 +47,12 @@ function grabLinkedPidInfo(urls) {
             let pidInfo = {
                 "pid": htmlDocument.querySelectorAll("title")[0].textContent.match(/\d+/)[0],
                 "description": htmlDocument.querySelectorAll('#product_overview')[0].children[1].children[0].children[0].children[1].textContent.trim(),
-                "editorsNotes": htmlDocument.querySelectorAll("[id^='editors_comments']:not([id$='count'])")[0].defaultValue,
-                "details": htmlDocument.querySelectorAll("[id^='long_description']:not([id$='count'])")[0].defaultValue,
-                "sizeAndFit": htmlDocument.querySelectorAll("[id^='size_fit']:not([id$='count'])")[0].defaultValue,
-                "keywords": htmlDocument.querySelectorAll("[id^='keywords']:not([id$='count'])")[0].defaultValue,
+                "editorsNotes": htmlDocument.querySelectorAll("[id^='editors_comments']:not([id$='count'])")[navNumber].defaultValue,
+                "details": htmlDocument.querySelectorAll("[id^='long_description']:not([id$='count'])")[navNumber].defaultValue,
+                "sizeAndFit": htmlDocument.querySelectorAll("[id^='size_fit']:not([id$='count']):not([id^='size_fit_delta'])")[navNumber].defaultValue,
+                "keywords": htmlDocument.querySelectorAll("[id^='keywords']:not([id$='count'])")[navNumber].defaultValue,
                 "currentListLink": htmlDocument.querySelectorAll("[id^='editorial_list']").length > 0 ? "<A HREF=" + htmlDocument.querySelectorAll("[id^='editorial_list']")[0].href + ">" + htmlDocument.querySelectorAll("[id^='editorial_list']")[0].textContent.replace(/_/g, " ") + "<A>" : "Not in an Editorial List",
-                "visibility": htmlDocument.getElementsByClassName('data')[0].children[1].children[0].children[7].innerHTML.indexOf('bullet_green') > -1
+                "visibility": htmlDocument.getElementsByClassName('data')[0].children[1].children[navNumber].children[7].innerHTML.indexOf('bullet_green') > -1
             }
             linkedPIDInfo.push(pidInfo)
         }
@@ -54,11 +63,11 @@ function grabLinkedPidInfo(urls) {
 
             document.getElementById('onClickShow').addEventListener("click", toggleModal, false) // Add onlclick to show colour variations button.
 
-            let currentEditorsNotes = document.querySelectorAll("[id^='editors_comments']")[0].defaultValue;
-            let currentDetails = document.querySelectorAll("[id^='long_description']")[0].defaultValue;
+            let currentEditorsNotes = document.querySelectorAll("[id^='editors_comments']:not([id$='count'])")[navNumber].value;
+            let currentDetails = document.querySelectorAll("[id^='long_description']:not([id$='count'])")[navNumber].value;
             let currentDescription = document.querySelectorAll('#product_overview')[0].children[1].children[0].children[0].children[1].textContent.trim();
-            let currentSizeAndFit = document.querySelectorAll("[id^='size_fit']")[0].defaultValue;
-            let currentKeywords = arrayUnique(document.querySelectorAll("[id^='keywords']")[0].defaultValue.trim().split(/[\s{1,},]|\t/)).filter(word => word.length > 1).sort();
+            let currentSizeAndFit = document.querySelectorAll("[id^='size_fit']:not([id$='count']):not([id^='size_fit_delta'])")[navNumber].value;
+            let currentKeywords = arrayUnique(document.querySelectorAll("[id^='keywords']:not([id$='count'])")[navNumber].value.trim().split(/[\s{1,},]|\t/)).filter(word => word.length > 1).sort();
             let currentCurrentList = document.querySelectorAll("[id^='editorial_list']")[0].textContent.replace(/_/g, "_<BR>");
             let currentPid = document.querySelectorAll("title")[0].textContent.match(/\d+/)[0];
 
@@ -210,10 +219,11 @@ function grabLinkedPidInfo(urls) {
             addOnInteractionFunctions()
 
             for (var a = 0; a < linkedPIDInfo.length; a++) {
-                document.getElementsByClassName('editorsNotes')[a].innerText = linkedPIDInfo[a].editorsNotes
-                document.getElementsByClassName('details')[a].innerText = linkedPIDInfo[a].details
-                document.getElementsByClassName('sizeAndFitNotes')[a].innerText = linkedPIDInfo[a].sizeAndFit
-                document.getElementsByClassName('keywords')[a].innerText = linkedPIDInfo[a].keywords
+                    document.getElementsByClassName('editorsNotes')[a].innerText = linkedPIDInfo[a].editorsNotes
+                    document.getElementsByClassName('details')[a].innerText = linkedPIDInfo[a].details
+                    document.getElementsByClassName('sizeAndFitNotes')[a].innerText = linkedPIDInfo[a].sizeAndFit
+                    document.getElementsByClassName('keywords')[a].innerText = linkedPIDInfo[a].keywords
+    
             }
             document.getElementById('onClickHide').addEventListener("click", toggleModal, false)
             document.getElementById('loadingText').innerHTML = "<B>Click to View</B>"
@@ -254,13 +264,13 @@ function addOnInteractionFunctions() {
             // console.log(cellIndex)
             pageChange = true;
             if (cellIndex == 2) {
-                document.querySelectorAll("[id^='editors_comments']:not([id$='count'])")[0].textContent = document.getElementById('currentEditorsNotes').children[0].value;
+                document.querySelectorAll("[id^='editors_comments']:not([id$='count'])")[navNumber].value = document.getElementById('currentEditorsNotes').children[0].value;
             } else if (cellIndex == 3) {
-                document.querySelectorAll("[id^='long_description']:not([id$='count'])")[0].textContent = document.getElementById('currentDetails').children[0].value;
+                document.querySelectorAll("[id^='long_description']:not([id$='count'])")[navNumber].value = document.getElementById('currentDetails').children[0].value;
             } else if (cellIndex == 4) {
-                document.querySelectorAll("[id^='size_fit']:not([id$='count'])")[0].textContent = document.getElementById('currentSizeAndFitNotes').children[0].value;
+                document.querySelectorAll("[id^='size_fit']:not([id$='count']):not([id^='size_fit_delta'])")[navNumber].value = document.getElementById('currentSizeAndFitNotes').children[0].value;
             } else if (cellIndex == 5) {
-                document.querySelectorAll("[id^='keywords']:not([id$='count'])")[0].textContent = document.getElementById('currentKeywordsBox').value;
+                document.querySelectorAll("[id^='keywords']:not([id$='count'])")[navNumber].value = document.getElementById('currentKeywordsBox').value;
             }
         }
     }
@@ -455,6 +465,5 @@ for (let a = 0;a<phraseClean.length;a++) {
 masterPhraseArray.push(phraseClean[a].trim())
 }
 
-console.log(masterPhraseArray)
 
 */
