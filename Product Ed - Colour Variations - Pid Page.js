@@ -3,12 +3,7 @@ var linkedPIDInfo = [];
 var pageChange = false;
 var site = document.getElementsByClassName('data')[0].children[1].children[0].children[0].innerHTML.indexOf("MRP") > 1 ? "MRP" : "NAP";
 var siteLink = site == "MRP" ? "mrporter" : "net-a-porter";
-var navNumber = 0;
-
-if (window.location.href.indexOf("#tab") > -1) {
-    navNumber = parseInt(window.location.href.substr(window.location.href.indexOf("#tab")+4,1))-1
-} 
-
+var navNumber = $(".selected").prev().length;
 
 grabColourVariations(currentPID);
 
