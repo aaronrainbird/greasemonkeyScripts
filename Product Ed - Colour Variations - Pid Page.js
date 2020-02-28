@@ -92,7 +92,7 @@ function grabLinkedPidInfo(urls) {
                             <td id='currentKeywords'><textarea id='currentKeywordsBox'>${currentKeywords.join(" ") + " "}</textarea></td>
                         </tr>
                         <tr>
-                            <td style='width:5%;'></td>
+                            <td style='width:5%;'><A HREF="https://docs.google.com/spreadsheets/d/1fv8_rjSD62-xIa0VidH1FPLuKfprBYPxxzhD5jqGXZk/edit#gid=0" target="_blank" style="color:red;background-color:yellow">Spreadsheet Tracker Link</A></td>
                             <td style='width:10%;'></td>
                             <td style="text-align: center;"><button type="button" class="copyTo">Copy to Page</button></td>
                             <td style="text-align: center;"><button type="button" class="copyTo">Copy to Page</button></td>
